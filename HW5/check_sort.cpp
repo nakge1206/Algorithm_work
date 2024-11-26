@@ -4,7 +4,7 @@
 
 int main() {
     std::ifstream file1("insertion_output.txt");
-    std::ifstream file2("radix_msd_output.txt");
+    std::ifstream file2("external_output.txt");
 
     // 파일을 열 수 있는지 확인
     if (!file1.is_open() || !file2.is_open()) {

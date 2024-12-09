@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class VertexCover {
+public class VCP {
     static class Edge {
         String u, v;
 
@@ -16,8 +16,10 @@ public class VertexCover {
     }
 
     public static void main(String[] args) {
+        // 그래프의 인접 리스트 정의
         Map<String, List<String>> graph = new HashMap<>();
 
+        // 노드와 엣지 추가
         String[] nodes = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"};
         for (String node : nodes) {
             graph.put(node, new ArrayList<>());
@@ -57,10 +59,12 @@ public class VertexCover {
         addEdge(graph, "N", "O");
         addEdge(graph, "O", "P");
 
-        Set<Edge> max_matching = vertex_cover(graph);
+        // 최대 매칭 찾기
+        Set<Edge> matching = VCP(graph);
 
-        System.out.println("극대 매칭 간선 : ");
-        for (Edge edge : max_matching) {
+        // 출력
+        System.out.println("Maximal Matching Edges:");
+        for (Edge edge : matching) {
             System.out.println(edge);
         }
     }
@@ -70,7 +74,7 @@ public class VertexCover {
         graph.get(v).add(u);
     }
 
-    private static Set<Edge> vertex_cover(Map<String, List<String>> graph) {
+    private static Set<Edge> VCP(Map<String, List<String>> graph) {
         Set<Edge> matching = new HashSet<>();
         Set<String> visited = new HashSet<>();
 
@@ -78,10 +82,11 @@ public class VertexCover {
             if (!visited.contains(u)) {
                 for (String v : graph.get(u)) {
                     if (!visited.contains(v)) {
+                        // Edge (u, v)를 매칭에 추가
                         matching.add(new Edge(u, v));
                         visited.add(u);
                         visited.add(v);
-                        break;
+                        break; // 현재 노드(u)에 대해 더 이상 매칭을 찾지 않음
                     }
                 }
             }
